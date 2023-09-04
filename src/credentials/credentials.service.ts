@@ -1,14 +1,14 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateCredentialDto } from './dto/create-credential.dto';
 import { UpdateCredentialDto } from './dto/update-credential.dto';
-import { CredentalsRepository } from './credentials.repository';
+import { CredentialsRepository } from './credentials.repository';
 import { User } from '@prisma/client';
 import Cryptr from 'cryptr';
 
 @Injectable()
 export class CredentialsService {
   private cryptr: Cryptr;
-  constructor(private readonly credentalsRepository: CredentalsRepository) {
+  constructor(private readonly credentalsRepository: CredentialsRepository) {
     const Cryptr = require('cryptr');
     this.cryptr = new Cryptr('myTotallySecretKey', { pbkdf2Iterations: 10000, saltLength: 10 });
   }

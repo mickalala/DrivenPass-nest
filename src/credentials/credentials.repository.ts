@@ -6,7 +6,6 @@ import { User } from "@prisma/client";
 @Injectable()
 export class CredentialsRepository {
 
-
     constructor(private readonly prisma: PrismaService) { }
 
     createCredential(body: CreateCredentialDto, user: User) {
