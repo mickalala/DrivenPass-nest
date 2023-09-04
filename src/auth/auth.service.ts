@@ -8,9 +8,9 @@ import { User } from '@prisma/client';
 @Injectable()
 export class AuthService {
 
-    private EXPIRATION_TIME: "8 days";
-    private ISSUER: "mimi";
-    private AUDIENCE: "users";
+    private EXPIRATION_TIME = "8d";
+    private ISSUER = "mimi";
+    private AUDIENCE = "users";
 
     constructor(
         private readonly jwtService: JwtService,
@@ -29,7 +29,7 @@ export class AuthService {
         const user = await this.authRepository.getUserByEmail(email);
         if (!user) throw new UnauthorizedException('Email or password not valid.');
 
-        const validPassword = bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) throw new UnauthorizedException('Email or password not valid.');
 
         return this.createToken(user)

@@ -28,8 +28,9 @@ model Credetial {
   url      String
   userName String
   password String
-  title    String @unique
+  title    String
 
+  @@unique([title, userId])
   @@map("credentials")
 }
 
@@ -55,7 +56,6 @@ model Card {
   isVirtual    Boolean @default(false)
   type         String
   title        String
-  
 
   @@map("cards")
 }

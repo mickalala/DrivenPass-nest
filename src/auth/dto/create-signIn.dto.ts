@@ -1,3 +1,9 @@
-import { CreateSignUp } from "./create-signUp.dto";
+import { IsNotEmpty } from "class-validator";
 
-export class CreateSignIn extends CreateSignUp { }
+export class CreateSignIn {
+    @IsNotEmpty()
+    email: string;
+
+    @IsNotEmpty()
+    password: string;
+}
