@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { NotesRepository } from './notes.repository';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class NotesService {
-  create(createNoteDto: CreateNoteDto) {
-    return 'This action adds a new note';
+  constructor(private readonly notesRepository: NotesRepository) { }
+
+  async create(body: CreateNoteDto, user: User) {
+    const { id: userId } = user;
+    await this.findByTitle(body, userId);
+    return await this.notesRepository.createNote(body, user)
+
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findByTitle(body: CreateNoteDto, userId: number) {
+    throw new Error('Method not implemented.');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findAll(user: User) {
+    return await this.notesRepository.findUsersNotes(user)
+      ;
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+  async findOne(id: number, user: User) {
+    const { id: userId } = user;
+    const note = await this.notesRepository.findNoteById(id);
+    if (!note) throw new NotFoundException()
+    if (note.userId !== userId) throw new ForbiddenException();
+    return note;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async update(id: number, updateNoteDto: UpdateNoteDto, user: User) {
+    const note = await this.findOne(id, user)
+
+    return;
+  }
+
+  async remove(id: number, user: User) {
+    await this.findOne(id, user)
+    await this.notesRepository.delete(id, user)
+    return true;
   }
 }

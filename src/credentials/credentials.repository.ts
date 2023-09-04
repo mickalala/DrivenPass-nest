@@ -4,7 +4,7 @@ import { CreateCredentialDto } from "./dto/create-credential.dto";
 import { User } from "@prisma/client";
 
 @Injectable()
-export class CredentalsRepository {
+export class CredentialsRepository {
 
 
     constructor(private readonly prisma: PrismaService) { }
