@@ -59,5 +59,7 @@ export class AuthService {
             throw new BadRequestException();
         }
     }
-
+    async get(id: number) {
+       return  await this.authRepository.findOneById(id);
+    }
 }

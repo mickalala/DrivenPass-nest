@@ -8,6 +8,7 @@ import Cryptr from 'cryptr';
 @Injectable()
 export class CredentialsService {
   private cryptr: Cryptr;
+  
   constructor(private readonly credentalsRepository: CredentialsRepository) {
     const Cryptr = require('cryptr');
     this.cryptr = new Cryptr('myTotallySecretKey', { pbkdf2Iterations: 10000, saltLength: 10 });

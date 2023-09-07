@@ -51,12 +51,13 @@ model Card {
   userId       Int
   cardNumber   String
   name         String
-  securityCode Int
+  securityCode String
   expiry       Int
   password     String
   isVirtual    Boolean @default(false)
   type         String
   title        String
 
+  @@unique([title, userId])
   @@map("cards")
 }
