@@ -2,6 +2,13 @@
 
 DrivenPass is a tool used by keep user passwords secret. It's a back-end project where the user can register, login and routes are authenticated. 
 
+<p align='center'>
+ <img src="https://github.com/mickalala/DrivenPass-nest/assets/117683871/dc423832-8a5c-4256-9a19-8595532a4cba"
+/>
+
+</p>
+
+
 ## Features
 
 - [x] Sign-Up
